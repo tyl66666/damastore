@@ -1,0 +1,35 @@
+server:
+  port: 8801
+spring:
+  application:
+    name: mi-index
+
+  mvc:
+    static-path-pattern: "/**"
+    hiddenmethod:
+      filter:
+        enabled: true
+  cloud:
+    inetutils:
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        namespace: mistore
+  web:
+    resources:
+      static-locations: [classpath:/mi,classpath:/static,classpath:/public,classpath:/resources,classpath:/resources,classpath:/META-INF/resources]
+logging:
+  level:
+    root: info
+    com.yc: info
+    org.springframework.web: info
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: ""

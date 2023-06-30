@@ -1,0 +1,39 @@
+spring:
+  cloud:
+    gateway:  #基础的路由转发配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        namespace: mistore
+  application:
+    name: mi-goods
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: zhouxingyuxq99
+    url: jdbc:mysql://localhost:3306/mistore?serverTimeZone=UTC
+    #使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+  web:
+    resources:
+      static-locations: [file:e:/upload/,classpath:/public/,classpath:/resources/,classpath:/META-INF/resources/,classpath:/static/]
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印mybatis-plus的sql语句
+
+server:
+  port: 8802
+
+logging:
+  level:
+    root: info
+    com.mis.miGoods: info
+    org.springframework: info

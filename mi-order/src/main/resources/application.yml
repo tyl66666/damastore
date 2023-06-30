@@ -1,0 +1,84 @@
+spring:
+  cloud:
+#    sentinel:  #sentinel配置
+#      transport:
+#        port: 8719
+#        dashboard: localhost:8888
+#      eager: true
+
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        namespace: mistore
+
+#  sleuth:
+#    web:
+#      client:
+#        #开启采集链路
+#        enabled: true
+#    sampler:
+#      #默认采集是0.1(百分之十),生产环境采用默认，测试环境可以修改为1.0
+#      probability: 1.0
+#  zipkin:
+#    base-url: http://localhost:9411/
+  redis:
+    host: localhost
+    port: 6379
+    database: 6
+  application:
+    name: mi-order
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: zhouxingyuxq99
+    url: jdbc:mysql://localhost:3306/mistore?serverTimeZone=UTC
+    #使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+server:
+  port: 8804
+
+logging:
+  level:
+    root: info
+    com.mis: info
+    org.springframework: info
+    #com.yc.api.miApi: DEBUG
+    #针对一个客户端
+  file:
+    path: ./logs
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印mybatis-plus的sql语句
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: ""
+feign:
+  compression:
+    request:
+      enabled: true
+      min-request-size: 2048  #超过2048字节进行压缩
+      mime-types: #可以被压缩的类型
+        - text/xml
+        - application/xml
+        - application/json
+    response:
+      enabled: true
+
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 3000
+#        readTimeout: 3000
+alipay.appId: 2021000121693973
+alipay.appPrivateKey: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCwOLGFTM8PJH0p6xtDV0fdEakXyfhPIEdRbBS+bLTq7RrXHd2FXy6luKxEOIxdEUXN4oKxVYAn5I8Mui26ZEjmA4LmgknuQyL+TCAj2h1Q5QJr2h+TNLV71jyZcx0gef31F1feuIohRrbT9u8dMcbW02ySKjOlKpBDibjWPCahmfPWKykP9rGojPtXiXepN3bIl7mltoSk/0siJlzVp0+tE/7WeebwDi7QBjB60HnL7iwLrUr33pjlitch9XpXRbpHBL4Ad1VlEt0sh4h8pwRb3sUX2Pr8f4OwNoFm5NfJyiWp1R2f7KxJugko0GvgaprRc8BF15r4qGPrtFyd1JzbAgMBAAECggEBAI/5QdBOuLz+auRcmaGjJauQSj6NXLoI/TugujH6TrXBkjQ+ykW1Rj9Pai8ypDtFaWqUrYKFAHeXXOhhFAs88/I43DHIMO7hGy34tCmWgm0dLaVASJvUbJIIruoQCrQF917O+5OT4gbd53G2RhXsHTBW/FVO9XL0G3mSg9lEu6s65NqxTxExiVxV/g2QdIQAxi/fX08LdmEs9+y0FNRVFKvq8vyxk/5En5+wIx/b15FDlk2O+aMp930D/f68dNINQSLhzHXA2+D33cf8hn8dGoA4bne5GgPwwU58aR0V/HcmreW+P98sZRGgXKjVzoMT2CrMarXpSObKqnfN1cHJokECgYEA+4mlueBEq1HNGp8O4bN3pA52AuHZEKXsp0u7SiDwef5tSiR5iZ7LrfY7NhqnFqX/iIomzWkkXyoMUqWsfacy4AbCN5hpodyxBmRVhMZv5pPDhRlkbIog5oDhrXkXuFv2a6jBexKJ+ryqYpZUCY6qvwV2U2sxsooZngnYLyswhb0CgYEAs1j/yMDY35pWpMR/A0EJQCd1cdkeQlO9aohfDjqThrGFjJy2lD5coy17j1EigVckuYgnyjyDZvKOVpLg5Q6dc41RQQZqtwExTp3XwRpfO1KXfR1wYQVsZZMYb0nyfAsXcPdD4NV23mNh0Upf995Njih0MzOsJe+N4yGBO7dqWncCgYARs4oaHpI2jDcm3HKrp3mP7gSYB1TDOyoAS/AOM2s46pK+WPrEmIw03dMk55NCoMPu0+oPIosQt2DOoCIXZaDK6y7Xwr4MSf+bN4xdH6nYTCXCRBsxGDdggUlgb9kffDlHMkULaC6VmplS/slDMusJLlU5YZ3JtrY+zOqNxzhO8QKBgHsprU5iEQ1NYh74yfikGwQxlNfAMKV/+F5GlHCjDVi8ZGgx3rhjMx7kRywencGQ5Kl8tUaO0/ZIsDMH3uWuabZG3/v1uic+7Gt+vgHgaHHGwD2tj9Uw8kW3BFq4v4sr2sc7JyQps935Bd3CY7FGup/bbCEVZS0QG7JU+fjWdnT1AoGBAIpkeCFRdnxxYi3zY6pnO+ixQd2lAS35gbNhQqrB6M2imeDxHstAgrEyQ26Zba3EgXB9yQPiTarQaVLHmNBrOS+z0TOFN/NRT0dKjlQaBzzO6ZNIo8rzgXym4fGTJA28xAE8dtD/efmr36AfGGkbaP7JmA5LHT5xdHwlGpjq8dxA
+alipay.alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhY+CV1+WZoTfE7IUc691lVnR9cYGZ4yBTmb1QFEee78Ez67Urd+6+ZTcGyvpIyIxtCeX+Y+YI3Zxn14bTPXR+wcOUgBA0dzgGLQTSZkeAE2vEg3vqUIBmpXAShdCbB4a1cp3JkhixPhdLJpjup3RJ2be4apwWD6d1S6hGThNppqyodQaQkfHC00A6oQUXQv1OdAFnP2xz/4QXfczmezvI2hdK7vRpWNkb2kVLLw50mi+G/ApmlBqnOevtnzROJU+dgnNAKiSxdh13IS4bdrbGrXPwxOo0lkDOpbZJwec/hWfOU+y8aYwgYXdjlx5nU6MaBGyYr00+pdR93PMlR/dHQIDAQAB
+alipay.notifyUrl: http://d2vrrs.natappfree.cc/miorder/alipay/notify
+alipay.returnUrl: http://localhost:2357/miindex/index.html
+#laahlh2859@sandbox.com

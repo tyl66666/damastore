@@ -1,0 +1,44 @@
+
+server:
+  port: 8809
+spring:
+  application:
+    name: mi-personel  #应用名
+
+  mvc:
+    static-path-pattern: "/**"
+    hiddenmethod:
+      filter:
+        enabled: true
+  web:
+    resources:
+      static-locations: [classpath:/mi,classpath:/static,classpath:/public,classpath:/resources,classpath:/resources,classpath:/META-INF/resources]
+
+  cloud:
+    nacos:      #注册到nacos中，负载均衡
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        namespace: mistore
+  #  redis:
+  #    host: localhost
+  #    port: 6379
+  #    database: 4
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: zhouxingyuxq99
+    url: jdbc:mysql://localhost:3306/mistore?serverTimeZone=UTC
+    #使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印mybatis-plus的sql语句
+
+logging:
+  level:
+    root: info
+    com.mi: info
+    org.springframwork: info

@@ -1,0 +1,81 @@
+server:
+  port: 2357
+
+spring:
+  application:
+    name: mi-gateway
+  cloud:
+    inetutils:
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+    gateway:  #基础的路由转发配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      #            allowCredentials: true
+      routes:   #查看配置源码
+        - id: mi-index
+          #uri: http://localhost:9999
+          uri: lb://mi-index
+          predicates:
+            - Path=/miindex/**
+            #            - After=2023-04-17T22:15:47.789-07:00[Asia/Shanghai]
+            #- ServiceTimeBetween=上午04:22,下午11:30
+          #        - id: baidu #唯一区别的名字  不写会随机给一个
+          #          uri: http://www.baidu.com  #都转发到百度
+          #          predicates:
+          #            #PathRoutePredicateFactory => PathRoutePredicate  断言
+          #            - Path=/**  #表示访问 此网站所有的路径都要  路由到 uri为  baidu的地址
+          #            # http://localhost:20001/
+          #            # http://www.baidu.com/abc  百度没有此资源 返回404
+          filters:
+            #- AddRequestHeader=token,123
+            - RewritePath=/miindex/(?<segment>.*), /$\{segment}
+            - MyTime=秒
+        - id: mi-security
+          uri: lb://mi-security
+          predicates:
+            - Path=/misecurity/**
+          filters:
+            - RewritePath=/misecurity/(?<segment>.*), /$\{segment}
+        - id: mi-goods
+          uri: lb://mi-goods
+          predicates:
+            - Path=/migoods/**
+          filters:
+            - RewritePath=/migoods/(?<segment>.*), /$\{segment}
+        - id: mi-personel
+          uri: lb://mi-personel
+          predicates:
+            - Path=/mipersonel/**
+          filters:
+            - RewritePath=/mipersonel/(?<segment>.*), /$\{segment}
+        - id: mi-order
+          uri: lb://mi-order
+          predicates:
+            - Path=/miorder/**
+          filters:
+            - RewritePath=/miorder/(?<segment>.*), /$\{segment}
+
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        namespace: mistore
+logging:
+  level:
+    root: info
+    com.mis.miGateway: info
+    org.springframework.cloud.gateway: info
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"    # 暴露gateway端点，* 是暴露全部端点
+  endpoint:
+    gateway:
+      enabled: true # default value
+

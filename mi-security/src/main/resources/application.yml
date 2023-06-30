@@ -1,0 +1,36 @@
+spring:
+  cloud:
+    inetutils:
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        namespace: mistore
+  application:
+    name: mi-security
+  redis:
+    host: localhost
+    port: 6379
+    database: 1
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: zhouxingyuxq99
+    url: jdbc:mysql://localhost:3306/mistore?serverTimeZone=UTC
+    #使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印mybatis-plus的sql语句
+
+logging:
+  level:
+    root: info
+    com.mis.miSecurity: info
+    org.springframework: info
+
+server:
+  port: 8803
