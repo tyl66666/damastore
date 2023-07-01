@@ -1,13 +1,15 @@
 package com.mi.personel.util;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
+
+
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class QQUtil {
     public static String QQmail=null;//存储验证码
@@ -28,7 +30,7 @@ public class QQUtil {
         // 构建授权信息，用于进行SMTP进行身份验证
         Authenticator authenticator = new Authenticator() {
 
-            protected PasswordAuthentication getPasswordAuthentication() {
+            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
                 // 用户名、密码
                 String userName = props.getProperty("mail.user");
                 String password = props.getProperty("mail.password");
@@ -47,7 +49,7 @@ public class QQUtil {
 
         // 设置收件人的邮箱
         InternetAddress to = new InternetAddress(qq);
-        message.setRecipient(RecipientType.TO, to);
+        message.setRecipient(MimeMessage.RecipientType.TO, to);
 
         // 设置邮件标题
         message.setSubject("验证码");
